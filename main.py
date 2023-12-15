@@ -2,7 +2,7 @@ import tkinter
 from tkinter import scrolledtext 
 from tkinter import *
 
-from pandastable import Table, TableModel
+from pandastable import Table
 import serial
 import time
 from database import *
@@ -15,17 +15,8 @@ def update_time_date_labels():
     date_label.config(text="Date: " + current_date)
     root.after(1000, update_time_date_labels)
 
-def subject_selected(showingSubject):
-    # showingSubject = sub.get()
-    Sub_OptionMenu__Label.config(text="Subject: " + showingSubject)
-    print(f"Showing {showingSubject} Attandence Record")
-    show_db(showingSubject)
 
-def show_db(subject):  
-    middle.table = Table(middle, dataframe=database[subject][0], showtoolbar=False, showstatusbar=False ,editable=False, height = 550, width = 700)
-    middle.table.show()
-
-# activeSubject = 'Class List'
+ActiveSubject = 'ClassList'
 
 ###############  MAIN WINDOW 
 root = Tk()
@@ -38,13 +29,9 @@ root.title("RFID Attendance System")
 top_L = Frame(root)
 top_L.grid(row=0, column=0, pady=20, padx=20)
 
-heading_label = Label(top_L, text="Electrical Department", font=("Helvetica", 24))
-date_label = Label(top_L, text="Current Date: ", font=("Helvetica", 12))
-time_label = Label(top_L, text="Current Time: ", font=("Helvetica", 12))
-
-heading_label.grid()
-date_label.grid()
-time_label.grid()
+heading_label = Label(top_L, text="Electrical Department", font=("Helvetica", 24)).grid()
+date_label = Label(top_L, text="Current Date: ", font=("Helvetica", 12)).grid()
+time_label = Label(top_L, text="Current Time: ", font=("Helvetica", 12)).grid()
 
 ##############  TOP_R FRAME 
 top_R = Frame(root, borderwidth=3)
@@ -56,7 +43,7 @@ Sub_OptionMenu__Label = Label(top_R, text="Subject :", font=("Helvetica", 12)).g
 Sub_OptionMenu = OptionMenu(top_R, Sub_OptionMenu__Var, *Sub_OptionMenu__List, command = subject_selected).grid()
 
 Column_name__Var = StringVar()
-Column_name__List = list(database[str(Sub_OptionMenu__Var)][0].columns)
+Column_name__List = list(database[ActiveSubject][0].columns)
 Column_name__Label = Label(top_R, text="Column Name:", font=("Helvetica", 12)).grid()
 Column_name = OptionMenu(top_R, Column_name__Var, *Column_name__List).grid()
 

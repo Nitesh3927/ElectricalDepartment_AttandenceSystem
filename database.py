@@ -26,13 +26,14 @@ def AttandenceAddition(df, column_name, sid_value, value_to_add):
 
 
 csv_files = list(filter(lambda f: f.endswith('.csv'), os.listdir("./")))
-csv_files.remove('Class Lists.csv')
+csv_files.remove('ClassLists.csv')
 
-ClassList = pd.read_csv("Class Lists.csv")
+ClassList = pd.read_csv("ClassLists.csv")
 
 database = dict()
-database['Class List']= [ClassList, 'ClassList', 'Class Lists.csv']
+database['ClassList']= [ClassList, 'ClassList', 'ClassLists.csv']
 for file_name in csv_files:
     db = pd.read_csv(file_name)
     subjectName = file_name[:-4]
-    database[subjectName] = [db, subjectName, file_name]
+    # database[subjectName] = [db, subjectName, file_name]
+    database[subjectName] = [subjectName, file_name]
