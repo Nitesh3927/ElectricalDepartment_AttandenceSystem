@@ -4,14 +4,26 @@ from database import database
 
 dtt = datetime.now().strftime("%d %b, %a")
 
-def update_time_date_labels(root, time_label, date_label):
+# def update_time_date_labels(root, time_label, date_label):
+#     current_time = datetime.now().strftime("%H:%M:%S")
+#     current_date = datetime.now().strftime("%d - %m - %Y")
+#     time_label.config(text="Time: " + current_time)
+#     date_label.config(text="Date: " + current_date)
+#     root.after(1000, lambda root, time_label, date_label: update_time_date_labels(root, time_label, date_label))
+
+
+def time_date(root, time_label,date_label):
+    update_time_date_labels()
+
+
+def update_time_date_labels():
     current_time = datetime.now().strftime("%H:%M:%S")
     current_date = datetime.now().strftime("%d - %m - %Y")
     time_label.config(text="Time: " + current_time)
     date_label.config(text="Date: " + current_date)
     root.after(1000, update_time_date_labels)
 
-def subject_selected(showingSubject):
+def subject_selected(showingSubject, Sub_OptionMenu__Label):
     # showingSubject = sub.get()
     Sub_OptionMenu__Label.config(text="Subject: " + showingSubject)
     print(f"Showing {showingSubject} Attandence Record")

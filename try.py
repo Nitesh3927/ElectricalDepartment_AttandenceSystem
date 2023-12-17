@@ -22,5 +22,5 @@ print()
 #     print('---------->', item)
 # print()
 
-print(ActiveSubject)
+# print(ActiveSubject)
 # print(list(database.values()))
