@@ -66,6 +66,6 @@ status.grid()
 
 
 ##############  SHOWING THE GUI 
-gui_Functions.time_date(root, time_label,date_label)
+lambda root, date_label, time_label: gui_Functions.update_time_date_labels()
 root.mainloop()
 
