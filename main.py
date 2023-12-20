@@ -39,19 +39,18 @@ top_R.grid(row=0, column=1, pady=10, padx=20)
 Sub_OptionMenu__Var = StringVar()
 Sub_OptionMenu__List = list(database.keys())
 Sub_OptionMenu__Label = Label(top_R, text="Subject :", font=("Helvetica", 12))
-Sub_OptionMenu = OptionMenu(top_R, Sub_OptionMenu__Var, *Sub_OptionMenu__List)
-# Sub_OptionMenu = OptionMenu(top_R, Sub_OptionMenu__Var, *Sub_OptionMenu__List, command = subject_selected)
+Sub_OptionMenu = OptionMenu(top_R, Sub_OptionMenu__Var, *Sub_OptionMenu__List, command = subject_selected)
 
 Sub_OptionMenu__Label.grid()
 Sub_OptionMenu.grid()
 
-Column_name__Var = StringVar()
-Column_name__List = list(database[ActiveSubject][0].columns)
-Column_name__Label = Label(top_R, text="Column Name:", font=("Helvetica", 12))
-Column_name = OptionMenu(top_R, Column_name__Var, *Column_name__List)
+# Column_name__Var = StringVar()
+# Column_name__List = list(database[ActiveSubject][0].columns)
+# Column_name__Label = Label(top_R, text="Column Name:", font=("Helvetica", 12))
+# Column_name = OptionMenu(top_R, Column_name__Var, *Column_name__List)
 
-Column_name__Label.grid()
-Column_name.grid()
+# Column_name__Label.grid()
+# Column_name.grid()
 
 ##############  DATABASE FRAME 
 middle = Frame(root)

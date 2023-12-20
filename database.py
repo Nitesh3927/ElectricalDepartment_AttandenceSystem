@@ -1,6 +1,19 @@
 import pandas as pd
 import os
 
+class DatabaseHandler:
+    def __init__(self, csv_file_name):
+        self.csvFileName = csv_file_name
+        self.subjectName = csv_file_name[:-4]
+        self.df = pd.read_csv(csv_file_name)
+        
+        self.all_cols = list(self.df.columns)
+        self.main_cols = [x for x in self.df.columns if x in ('SID', 'NAME', 'RFID')]
+        self.dates_cols = [x for x in self.df.columns if x not in ('SID', 'NAME', 'RFID')]
+    
+    def __str__(self):
+        return f'Subject Name : {self.subjectName}\nFile Name : {self.csvFileName}\nAll Cols  : {self.all_cols}\nMain Cols  : {self.main_cols}\nDates Cols : {self.dates_cols}\nDATABASE --->\n[{self.df}\n'    
+        
 def StudentInfo(df, rfid):
 
     matching_row = df[df['RFID'] == rfid]
@@ -26,14 +39,19 @@ def AttandenceAddition(df, column_name, sid_value, value_to_add):
 
 
 csv_files = list(filter(lambda f: f.endswith('.csv'), os.listdir("./")))
-csv_files.remove('ClassLists.csv')
 
-ClassList = pd.read_csv("ClassLists.csv")
+database =[DatabaseHandler(x) for x in csv_files]
 
-database = dict()
-database['ClassList']= [ClassList, 'ClassList', 'ClassLists.csv']
-for file_name in csv_files:
-    db = pd.read_csv(file_name)
-    subjectName = file_name[:-4]
-    # database[subjectName] = [db, subjectName, file_name]
-    database[subjectName] = [subjectName, file_name]
+print(database)
+# for i in database:
+#     print(i)
+#     print()
+
+
+# # DATABASE IMPLIMEMTAION 
+# database = dict()
+# for file_name in csv_files:
+#     db = pd.read_csv(file_name)
+#     subjectName = file_name[:-4]
+#     database[subjectName] = [db, subjectName, file_name]
+#     # database[subjectName] = [subjectName, file_name]

@@ -1,25 +1,24 @@
 from database import *
 
-print(type(database))
+# print(type(database))
 
-print(list(database.keys()))
-print()
-print()
+# print(list(database.keys()))
+# print()
 
 # print('database.keys()')
 # for item in database.keys():
-#     print('---------->', item)
+#     print('', item)
 
 # print()
 
 # print('database.items()')
 # for item in database.items():
-#     print('---------->', item)
+#     print('', item)
 # print()
 
 # print('database.values()')
 # for item in database.values():
-#     print('---------->', item)
+#     print('', item)
 # print()
 
 # print(ActiveSubject)
