@@ -9,9 +9,9 @@ import serial
 import time
 
 from database import *
-import gui_Functions
+from gui_Functions import DropDowns, update_time_date_labels
 
-ActiveSubject = 'ClassList'
+ActiveSubject = database[0]
 
 ###############  MAIN WINDOW 
 root = Tk()
@@ -36,21 +36,11 @@ time_label.grid()
 top_R = Frame(root, borderwidth=3)
 top_R.grid(row=0, column=1, pady=10, padx=20)
 
-Sub_OptionMenu__Var = StringVar()
-Sub_OptionMenu__List = list(database.keys())
-Sub_OptionMenu__Label = Label(top_R, text="Subject :", font=("Helvetica", 12))
-Sub_OptionMenu = OptionMenu(top_R, Sub_OptionMenu__Var, *Sub_OptionMenu__List, command = subject_selected)
+subject_selection = DropDowns(root=top_R, text='Subject u want to see:')
+subject_selection.create_Dropdown(elements=[x.subjectName for x in database], fun= subject_selection.subject_selected)
 
-Sub_OptionMenu__Label.grid()
-Sub_OptionMenu.grid()
-
-# Column_name__Var = StringVar()
-# Column_name__List = list(database[ActiveSubject][0].columns)
-# Column_name__Label = Label(top_R, text="Column Name:", font=("Helvetica", 12))
-# Column_name = OptionMenu(top_R, Column_name__Var, *Column_name__List)
-
-# Column_name__Label.grid()
-# Column_name.grid()
+col_selection = DropDowns(root=top_R, text='Select lecture')
+col_selection.create_Dropdown(elements=ActiveSubject.dates_cols)
 
 ##############  DATABASE FRAME 
 middle = Frame(root)
@@ -65,6 +55,6 @@ status.grid()
 
 
 ##############  SHOWING THE GUI 
-gui_Functions.update_time_date_labels(time_label, date_label, root)
+update_time_date_labels(time_label, date_label, root)
 root.mainloop()
 

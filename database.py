@@ -9,7 +9,13 @@ class DatabaseHandler:
         
         self.all_cols = list(self.df.columns)
         self.main_cols = [x for x in self.df.columns if x in ('SID', 'NAME', 'RFID')]
-        self.dates_cols = [x for x in self.df.columns if x not in ('SID', 'NAME', 'RFID')]
+
+        dates = [x for x in self.df.columns if x not in ('SID', 'NAME', 'RFID')]
+        if len(dates) == 0:
+            self.dates_cols = ['NONE']
+        else:
+            self.dates_cols = dates
+
     
     def __str__(self):
         return f'Subject Name : {self.subjectName}\nFile Name : {self.csvFileName}\nAll Cols  : {self.all_cols}\nMain Cols  : {self.main_cols}\nDates Cols : {self.dates_cols}\nDATABASE --->\n[{self.df}\n'    
@@ -42,10 +48,10 @@ csv_files = list(filter(lambda f: f.endswith('.csv'), os.listdir("./")))
 
 database =[DatabaseHandler(x) for x in csv_files]
 
-print(database)
-# for i in database:
-#     print(i)
-#     print()
+# print(database)
+for i in database:
+    print(i)
+    print()
 
 
 # # DATABASE IMPLIMEMTAION 
