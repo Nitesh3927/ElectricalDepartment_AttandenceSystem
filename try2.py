@@ -2,9 +2,7 @@ from database import *
 from gui_Functions import DropDowns
 from tkinter import Tk, Frame
 
-def show_db(middle, ActiveSubject):  
-        middle.table = Table(middle, dataframe=ActiveSubject.df, showtoolbar=False, showstatusbar=False ,editable=False, height = 550, width = 700)
-        middle.table.show()
+
 
 ActiveSubject = 'ClassList'
 

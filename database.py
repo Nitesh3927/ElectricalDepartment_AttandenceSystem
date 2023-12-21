@@ -49,9 +49,9 @@ csv_files = list(filter(lambda f: f.endswith('.csv'), os.listdir("./")))
 database =[DatabaseHandler(x) for x in csv_files]
 
 # print(database)
-for i in database:
-    print(i)
-    print()
+# for i in database:
+#     print(i)
+#     print('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
 
 
 # # DATABASE IMPLIMEMTAION 
