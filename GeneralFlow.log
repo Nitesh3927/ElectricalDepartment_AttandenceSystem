@@ -1,0 +1,15 @@
+main-<module> --> ID of database[0] : 1866828445072
+main-<module> --> ID of database[1] : 1866801022160
+main-<module> --> ID of database[2] : 1866805856208
+main-<module> --> ID of database[3] : 1866807098160
+
+gui_Functions - subject_selected --> 
+PowerElectronics selected
+
+gui_Functions - show_db --> 
+PowerElectronics showing
+
+gui_Functions - lecture_selected --> 
+
+
+lecture_selected called: ['NONE'] selected

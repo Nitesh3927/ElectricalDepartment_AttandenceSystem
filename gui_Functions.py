@@ -4,11 +4,32 @@ from database import database
 from tkinter import Label, StringVar, OptionMenu
 import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file = logging.FileHandler(filename='GeneralFlow.log', )
+
+formatter = logging.Formatter('\n%(module)s - %(funcName)s --> \n%(message)s')
+file.setFormatter(formatter)
+
+logger.addHandler(file)
+
+
 def show_db(middle, ActiveSubject):  
         middle.table = Table(middle, dataframe=ActiveSubject.df, showtoolbar=False, showstatusbar=False ,editable=False, height = 550, width = 600)
         middle.table.show()
-        print(f"show_db called: {ActiveSubject.subjectName} showing")
-        print(f'ID of ActiveSubject_after_assignment ======= {id(ActiveSubject)}\n\n')
+        logger.info(f'{ActiveSubject.subjectName} showing')
+
+def updateOptions(opMenu, newValues):
+    opMenu.configure(state='normal')  # Enable drop down
+    menu = opMenu['menu']
+
+    # Clear the menu.
+    menu.delete(0, 'end')
+    for name in newValues:
+        # Add menu items.
+        menu.add_command(label=name, command=lambda name=name: var.set(name))
+        # OR menu.add_command(label=name, command=partial(var.set, name))
 
 
 class DropDowns:
@@ -29,25 +50,21 @@ class DropDowns:
         showingSubject = self.var.get()
         self.label.config(text="Subject: " + showingSubject)
         
-        print(f"\nsubject_selected called: {showingSubject} selected")
-        # print(f'ID of showingSubject : {id(showingSubject)}')
-        
         for x in database:
             if x.subjectName == event:
                 self.Active = x
-                # global ActiveSubject
-                # ActiveSubject = x
         
-        print(f'ID of ActiveSubject_after_assignment ======= {id(self.Active)}')
-        
+        logger.info(f'{showingSubject} selected')
+        self.root.update_idletasks()
         show_db(self.database_frame, self.Active)
     
     def lecture_selected(self, event):
-        print(f"\n\nlecture_selected called: {self.Active} selected")
-        # print(event)
-        # print(ActiveSubject.all_cols)
-        # print(self.Active)
-        # print(ActiveSubject.dates_cols)
+        updateOptions(opMenu=self.dropDown, newValues=self.list)
+        logger.info(f"\n\nlecture_selected called: {self.Active} selected")
+        # logger.info(event)
+        # logger.info(ActiveSubject.all_cols)
+        # logger.info(self.Active)
+        # logger.info(ActiveSubject.dates_cols)
         
 
 def update_time_date_labels(time_label, date_label, root):

@@ -11,18 +11,23 @@ from database import DatabaseHandler, AttandenceAddition, NewColumn, StudentInfo
 
 from gui_Functions import DropDowns, update_time_date_labels
 
-logging.basicConfig(filename="newfile.log",
-                    level = logging.INFO,
-                    format='--> %(message)s',
-                    filemode='w')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+file = logging.FileHandler(filename='GeneralFlow.log', mode='w')
+
+formatter = logging.Formatter('%(module)s-%(funcName)s --> %(message)s')
+file.setFormatter(formatter)
+
+logger.addHandler(file)
 
 
 start = time.time()
 
-logging.info(f'ID of database[0] : {id(database[0])}')
-logging.info(f'ID of database[1] : {id(database[1])}')
-logging.info(f'ID of database[2] : {id(database[2])}')
-logging.info(f'ID of database[3] : {id(database[3])}')
+logger.info(f'ID of database[0] : {id(database[0])}')
+logger.info(f'ID of database[1] : {id(database[1])}')
+logger.info(f'ID of database[2] : {id(database[2])}')
+logger.info(f'ID of database[3] : {id(database[3])}')
 
 
 ###############  MAIN WINDOW 
@@ -85,8 +90,8 @@ print(f"Execution time of the program is -------> {(end-start)*100:.3f}ms\n")
 root.mainloop()
 
 
-print(f'END--->\nID of ActiveSubject : {id(subject_selection.Active)}\n')
-print(subject_selection.Active)
+# print(f'END--->\nID of ActiveSubject : {id(subject_selection.Active)}\n')
+# print(subject_selection.Active)
 
 
 
