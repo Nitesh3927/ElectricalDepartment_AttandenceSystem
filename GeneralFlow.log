@@ -1,15 +1,10 @@
-main-<module> --> ID of database[0] : 1866828445072
-main-<module> --> ID of database[1] : 1866801022160
-main-<module> --> ID of database[2] : 1866805856208
-main-<module> --> ID of database[3] : 1866807098160
+main-<module> --> ID of database[0] : 2254982558112
+main-<module> --> ID of database[1] : 2256597820976
+main-<module> --> ID of database[2] : 2254975665360
+main-<module> --> ID of database[3] : 2254985520880
 
-gui_Functions - subject_selected --> 
-PowerElectronics selected
+gui_manager - subject_selected --> 
+ControlSystem selected
 
-gui_Functions - show_db --> 
-PowerElectronics showing
-
-gui_Functions - lecture_selected --> 
-
-
-lecture_selected called: ['NONE'] selected
+gui_manager - show_db --> 
+ControlSystem showing

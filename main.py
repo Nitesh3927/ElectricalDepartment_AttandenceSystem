@@ -7,9 +7,9 @@ import time
 import logging
 
 from database import database
-from database import DatabaseHandler, AttandenceAddition, NewColumn, StudentInfo
+# from database import DatabaseHandler
 
-from gui_Functions import DropDowns, update_time_date_labels
+from gui_manager import DropDowns, update_time_date_labels
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -76,11 +76,11 @@ subject_selection.create_Dropdown(
 col_selection = DropDowns(
     root=top_R, 
     text='Select lecture', 
-    Active=subject_selection.Active.dates_cols)
+    Active=subject_selection.Active)
 
 col_selection.create_Dropdown(
     elements=subject_selection.Active.dates_cols, 
-    fun=col_selection.lecture_selected)
+    fun=lambda Active=subject_selection.Active : col_selection.lecture_selected(Active=Active))
 
 
 ##############  SHOWING THE GUI 
@@ -88,11 +88,3 @@ update_time_date_labels(time_label, date_label, root)
 end = time.time()
 print(f"Execution time of the program is -------> {(end-start)*100:.3f}ms\n")
 root.mainloop()
-
-
-# print(f'END--->\nID of ActiveSubject : {id(subject_selection.Active)}\n')
-# print(subject_selection.Active)
-
-
-
-# print(f'ID of ActiveSubject : {id(ActiveSubject)}')
