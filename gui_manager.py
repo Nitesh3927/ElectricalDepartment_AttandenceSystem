@@ -1,6 +1,6 @@
 from datetime import datetime
 from pandastable import Table
-from database import database
+from data_manager import database
 from tkinter import Label, StringVar, OptionMenu, _setit
 import logging
 
@@ -28,42 +28,81 @@ def update_options(new_choices, variable, option_menu):
         option_menu['menu'].add_command(label=choice, command=_setit(variable, choice))
 
 class DropDowns:
-    def __init__(self, root, text, Active=None, database_frame=None):
+    def __init__(self, root):
         self.var = StringVar()
-        self.Active = Active
+        # self.Active = Active
         self.root = root
-        self.label = Label(self.root, text= text, font=("Helvetica", 12))
-        # self.label.grid()
-        self.database_frame = database_frame
-    
-    def create_Dropdown(self, elements, fun=None):
-        self.list = elements
-        self.dropDown = OptionMenu(self.root, self.var, *self.list, command=fun)
-        # self.dropDown.grid()
+        # self.text = ''
+        # self.list = []
+        # self.database_frame = database_frame
 
-    def subject_selected(self,event):
+    def create_Label(self):
+        self.label = Label(self.root, text= self.text, font=("Helvetica", 12))
+        self.label.grid()
+        
+    
+    def create_Dropdown(self, fun= None):
+        self.dropDown = OptionMenu(self.root, self.var, *self.list, command=fun)
+        self.dropDown.grid()
+
+    
+
+    # def lecture_selected(self,Active):
+    #     logger.info(f'{Active.dates_cols},  {Active.main_cols}  {Active.all_cols}')
+    #     update_options(new_choices=Active.dates_cols, variable=self.var, option_menu=self.dropDown)
+    #     # self.ActiveDate = self.var.get()
+    #     # logger.info(f"Date list updated\nActive Date: {self.ActiveDate}")
+        
+class SubjectSelection(DropDowns):
+    def __init__(self, root, database_frame=None):
+        super().__init__(root)
+        self.root = root
+        self.database_frame = database_frame
+        self.text = 'Subject selected ->'
+        self.list = [x.subjectName for x in database]
+
+        self.create_Label()
+        self.create_Dropdown(fun=self.subject_selected)
+    
+    def subject_selected(self, event):
         showingSubject = self.var.get()
         self.label.config(text="Subject: " + showingSubject)
         
         for x in database:
-            if x.subjectName == event:
+            if x.subjectName == showingSubject:
                 self.Active = x
         
         logger.info(f'{showingSubject} selected')
         # self.root.update_idletasks()
         show_db(self.database_frame, self.Active)
-
-    def lecture_selected(self,Active):
-        logger.info(f'{Active.dates_cols},  {Active.main_cols}  {Active.all_cols}')
-        update_options(new_choices=Active.dates_cols, variable=self.var, option_menu=self.dropDown)
-        # self.ActiveDate = self.var.get()
-        # logger.info(f"Date list updated\nActive Date: {self.ActiveDate}")
         
+
+class DateSelection(DropDowns):
+    def __init__(self, root, database_frame=None):
+        super().__init__(root)
+        self.root = root
+        self.database_frame = database_frame
+        self.text = 'Date selected ->'
+        self.list = ['NONE']
+
+        self.create_Label()
+        self.create_Dropdown(fun=self.change_options)
+
+    def change_options(self, event):
+        self.dropDown['menu'].delete(0, 'end')
+        selected_category = SubjectSelection.var.get()
+
+        self.var.set('')
+        for x in database:
+                if x.subjectName == selected_category:
+                    subject_selected = x
+
+        for x in subject_selected.dates_cols:
+            self.dropDown['menu'].add_command(label=x, command=_setit(self.var, x))
+
 def update_time_date_labels(time_label, date_label, root):
     current_time = datetime.now().strftime("%H:%M:%S")
     current_date = datetime.now().strftime("%d - %m - %Y")
     time_label.config(text="Time: " + current_time)
     date_label.config(text="Date: " + current_date)
     root.after(1000, lambda: update_time_date_labels(time_label, date_label, root))
-
-

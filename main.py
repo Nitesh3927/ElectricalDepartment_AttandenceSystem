@@ -1,15 +1,17 @@
+import time
+start = time.time()
+
 from tkinter import scrolledtext 
 from tkinter import Frame, Tk, Label, WORD
-from datetime import datetime
+# from datetime import datetime
 
-import serial
-import time
+# import serial
 import logging
 
-from database import database
+from data_manager import database
 # from database import DatabaseHandler
 
-from gui_manager import DropDowns, update_time_date_labels
+from gui_manager import DropDowns, update_time_date_labels, SubjectSelection, DateSelection
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -22,7 +24,6 @@ file.setFormatter(formatter)
 logger.addHandler(file)
 
 
-start = time.time()
 
 logger.info(f'ID of database[0] : {id(database[0])}')
 logger.info(f'ID of database[1] : {id(database[1])}')
@@ -63,24 +64,31 @@ status.grid()
 top_R = Frame(root, borderwidth=3)
 top_R.grid(row=0, column=1, pady=10, padx=20)
 
-subject_selection = DropDowns(
-    root=top_R, 
-    text='Subject u want to see:', 
-    database_frame=middle, 
-    Active=database[0])
+subject_selection = SubjectSelection(root= top_R, database_frame= middle)
 
-subject_selection.create_Dropdown(
-    elements=[x.subjectName for x in database], 
-    fun= subject_selection.subject_selected)
+date_selection = DateSelection(root=top_R, database_frame= middle)
 
-col_selection = DropDowns(
-    root=top_R, 
-    text='Select lecture', 
-    Active=subject_selection.Active)
 
-col_selection.create_Dropdown(
-    elements=subject_selection.Active.dates_cols, 
-    fun=lambda Active=subject_selection.Active : col_selection.lecture_selected(Active=Active))
+# # -------------------------------------------------------------------------------------------
+# subject_selection = DropDowns(
+#     root=top_R, 
+#     text='Subject u want to see:', 
+#     database_frame=middle, 
+#     Active=database[0])
+
+# subject_selection.create_Dropdown(
+#     elements=[x.subjectName for x in database], 
+#     fun= subject_selection.subject_selected)
+
+# col_selection = DropDowns(
+#     root=top_R, 
+#     text='Select lecture', 
+#     Active=subject_selection.Active)
+
+# col_selection.create_Dropdown(
+#     elements=subject_selection.Active.dates_cols, 
+#     fun=lambda Active=subject_selection.Active : col_selection.lecture_selected(Active=Active))
+# # -------------------------------------------------------------------------------------------
 
 
 ##############  SHOWING THE GUI 

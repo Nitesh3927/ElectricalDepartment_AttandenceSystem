@@ -1,10 +1,5 @@
-main-<module> --> ID of database[0] : 2254982558112
-main-<module> --> ID of database[1] : 2256597820976
-main-<module> --> ID of database[2] : 2254975665360
-main-<module> --> ID of database[3] : 2254985520880
-
-gui_manager - subject_selected --> 
-ControlSystem selected
-
-gui_manager - show_db --> 
-ControlSystem showing
+exp_gui_manager-__init__--> GUIMAIN intilazed
+exp_gui_manager-subject_selected--> PowerElectronics selected
+exp_gui_manager-show_db--> PowerElectronics showing
+exp_gui_manager-subject_selected--> ControlSystem selected
+exp_gui_manager-show_db--> ControlSystem showing

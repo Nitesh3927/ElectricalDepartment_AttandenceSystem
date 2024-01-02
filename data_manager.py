@@ -47,17 +47,3 @@ def AttandenceAddition(df, column_name, sid_value, value_to_add):
 csv_files = list(filter(lambda f: f.endswith('.csv'), os.listdir("./")))
 
 database =[DatabaseHandler(x) for x in csv_files]
-
-# print(database)
-# for i in database:
-#     print(i)
-#     print('HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH')
-
-
-# # DATABASE IMPLIMEMTAION 
-# database = dict()
-# for file_name in csv_files:
-#     db = pd.read_csv(file_name)
-#     subjectName = file_name[:-4]
-#     database[subjectName] = [db, subjectName, file_name]
-#     # database[subjectName] = [subjectName, file_name]
